@@ -36,7 +36,7 @@ describe('AuthController', () => {
   });
 
   it('should register a user', async () => {
-    const dto = { email: 'testuser@example.com', password: 'password' };
+    const dto = { name: 'Test User', email: 'testuser@example.com', password: 'password' };
     const result = await authController.register(dto);
     expect(result).toHaveProperty('id');
     expect(result).toHaveProperty('message');

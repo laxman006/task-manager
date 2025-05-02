@@ -51,4 +51,10 @@ export class TasksController {
   async remove(@Param('id') id: string) {
     return this.tasksService.remove(id);
   }
+
+  @Get('secure')
+  @UseGuards(JwtAuthGuard) // Protect this route
+  getTasks() {
+    return [{ id: 1, title: 'Secure Task' }];
+  }
 }
