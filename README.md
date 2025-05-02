@@ -1,0 +1,7 @@
+- Set up NestJS backend with auth (JWT), task CRUD, and user modules
+- Created frontend with Next.js: dashboard, task form/card components
+- Auth controller and service mostly implemented
+- Backend protected routes using JwtAuthGuard
+- Fixed frontend Link usage to comply with Next.js 13+
+- API integration working for /tasks endpoint
+- Backend and frontend now compile and run without errors
