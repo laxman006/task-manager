@@ -8,35 +8,22 @@ import { CreateUserDto } from '../tasks/dto/create-user.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @InjectModel(User.name) private userModel: Model<UserDocument>,
-    private jwtService: JwtService,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
 
-  async register(createUserDto: CreateUserDto): Promise<User> {
-    try {
-      const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-      const newUser = new this.userModel({
-        ...createUserDto,
-        password: hashedPassword,
-      });
-      return await newUser.save();
-    } catch (error) {
-      if ((error as any).code === 11000 && (error as any).keyPattern?.email) {
-        throw new ConflictException('Email already in use');
-      }
-      throw error;
-    }
+  async register(createUserDto: CreateUserDto) {
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    const user = new this.userModel({
+      ...createUserDto,
+      password: hashedPassword,
+    });
+    return user.save();
   }
 
-  async login(email: string, password: string): Promise<{ access_token: string }> {
+  async login(email: string, password: string) {
     const user = await this.userModel.findOne({ email });
-
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
-
-    const payload = { sub: user._id, email: user.email };
-    return { access_token: this.jwtService.sign(payload) };
+    return { message: 'Login successful' };
   }
 }

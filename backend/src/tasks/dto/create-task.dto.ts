@@ -1,4 +1,4 @@
-import { IsString, IsEnum, IsDateString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsEnum, IsDateString } from 'class-validator';
 
 export enum TaskStatus {
   TODO = 'todo',
@@ -13,26 +13,26 @@ export enum TaskPriority {
 }
 
 export class CreateTaskDto {
-    @IsString()
-    title: string;
-  
-    @IsOptional()
-    @IsString()
-    description?: string;
-  
-    @IsOptional()
-    @IsEnum(['low', 'medium', 'high'])
-    priority?: 'low' | 'medium' | 'high';
-  
-    @IsOptional()
-    @IsEnum(['todo', 'in-progress', 'done'])
-    status?: 'todo' | 'in-progress' | 'done';
-  
-    @IsOptional()
-    @IsDateString()
-    dueDate?: string;
-  
-    @IsOptional()
-    @IsString()
-    createdBy?: string; // This will be set from `req.user`
-  }
+  @IsString()
+  title: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
+  @IsEnum(TaskPriority)
+  priority?: TaskPriority;
+
+  @IsOptional()
+  @IsEnum(TaskStatus)
+  status?: TaskStatus;
+
+  @IsOptional()
+  @IsDateString()
+  dueDate?: string;
+
+  @IsOptional()
+  @IsString()
+  createdBy?: string;
+}

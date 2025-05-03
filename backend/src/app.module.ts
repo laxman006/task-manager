@@ -6,18 +6,12 @@ import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
-    MongooseModule.forRoot(process.env.MONGODB_URI || '', {
-      dbName: 'taskmanager',
+    ConfigModule.forRoot(), // Load environment variables
+    MongooseModule.forRoot(process.env.MONGODB_URI || 'mongodb://localhost:27017/defaultdb', {
+     
     }),
-    TasksModule,
     AuthModule,
+    TasksModule,
   ],
 })
-export class AppModule {
-  constructor() {
-    if (!process.env.MONGODB_URI) {
-      throw new Error('MONGODB_URI is not defined in environment variables');
-    }
-  }
-}
+export class AppModule {}

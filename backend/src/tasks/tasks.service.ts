@@ -14,7 +14,7 @@ export class TasksService {
     return task.save();
   }
 
-  async findAll(p0: { $or: ({ createdBy: any; assignedTo?: undefined; } | { assignedTo: any; createdBy?: undefined; })[]; }): Promise<Task[]> {
+  async findAll(): Promise<Task[]> {
     return this.taskModel.find().exec();
   }
 
