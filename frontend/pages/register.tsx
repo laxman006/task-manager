@@ -14,7 +14,7 @@ export default function Register() {
     setErrorMessage('');
     try {
       await api.post('/auth/register', { email, password, name });
-      router.push('/login');
+      router.push('/login'); // Redirect to login after successful registration
     } catch (error: any) {
       const message = error?.response?.data?.message || 'Registration failed';
       console.error('Registration failed:', message);
@@ -23,41 +23,57 @@ export default function Register() {
   };
 
   return (
-    <div className="p-8 max-w-md mx-auto">
-      <h1 className="text-2xl mb-4 font-bold">Register</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Name"
-          className="border p-2 w-full rounded"
-          required
-        />
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          className="border p-2 w-full rounded"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          className="border p-2 w-full rounded"
-          required
-        />
-        {errorMessage && (
-          <div className="text-red-600 text-sm">{errorMessage}</div>
-        )}
-        <button
-          type="submit"
-          className="bg-secondary text-white p-2 rounded hover:bg-green-700 w-full"
-        >
-          Register
-        </button>
-      </form>
+    <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <div className="card shadow-lg p-4" style={{ maxWidth: '400px', width: '100%' }}>
+        <h1 className="text-center mb-4">Register</h1>
+        <form onSubmit={handleSubmit}>
+          {errorMessage && (
+            <div className="alert alert-danger text-center" role="alert">
+              {errorMessage}
+            </div>
+          )}
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">Name</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="form-control"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="form-control"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="form-control"
+              placeholder="Enter your password"
+              required
+            />
+          </div>
+          <button type="submit" className="btn btn-success w-100">Register</button>
+        </form>
+        <p className="text-center mt-3">
+          Already have an account? <a href="/login" className="text-primary">Login</a>
+        </p>
+      </div>
     </div>
   );
 }
