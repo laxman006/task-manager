@@ -10,6 +10,9 @@ export class User {
 
   @Prop({ required: true })
   password: string;
+
+  @Prop({ default: false })
+  isDemoUser: boolean; // Add a flag to identify demo users
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

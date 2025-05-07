@@ -35,3 +35,31 @@ export async function fetchTasks() {
     throw error; // Rethrow the error for the caller to handle
   }
 }
+
+// Demo login function
+export function demoLogin() {
+  try {
+    const token = 'demo-token'; // Simulate a token for demo login
+    localStorage.setItem('token', token); // Store the token in localStorage
+    console.log('Demo login successful. Token set:', token); // Log the token for debugging
+    window.location.href = '/dashboard'; // Redirect to the dashboard
+  } catch (error) {
+    console.error('Error during demo login:', error);
+    throw error; // Rethrow the error for the caller to handle
+  }
+}
+// Function to create a new task
+export async function createTask(taskData: { title: string; description: string }) {
+  try {
+    const response = await api.post('/tasks', taskData); // Send a POST request to create a new task
+    console.log('Task created successfully:', response.data); // Log the response for debugging
+    return response.data; // Return the created task data
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error creating task:', error.response?.data || error.message);
+    } else {
+      console.error('Error creating task:', error);
+    }
+    throw error; // Rethrow the error for the caller to handle
+  }
+}
