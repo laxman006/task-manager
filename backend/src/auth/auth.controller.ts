@@ -3,14 +3,10 @@ import { Response } from 'express';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../tasks/dto/create-user.dto';
 import { LoginDto } from '../tasks/dto/login.tdo';
-import { JwtService } from '@nestjs/jwt';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private readonly authService: AuthService,
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
